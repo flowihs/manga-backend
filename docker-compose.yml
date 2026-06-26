@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: happshop-postgres
+    environment:
+      POSTGRES_DB: happshop
+      POSTGRES_USER: happuser
+      POSTGRES_PASSWORD: happpass123
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5433:5432"  # Меняем на 5433
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U happuser -d happshop"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - happshop-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: happshop-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@happshop.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5051:80"  # Меняем на 5051
+    depends_on:
+      - postgres
+    networks:
+      - happshop-network
+
+volumes:
+  postgres_data:
+
+networks:
+  happshop-network:
+    driver: bridge
