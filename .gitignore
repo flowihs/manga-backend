@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-/src/main/java/ru/github/happshop/auth/controller/AuthController.java
+/src/main/java/ru/github/mangmania/auth/controller/AuthController.java
 /src/main/resources/application.yaml
 
 
