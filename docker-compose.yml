@@ -1,14 +1,14 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: happshop-postgres
+    container_name: mangmania-postgres
     environment:
-      POSTGRES_DB: happshop
-      POSTGRES_USER: happuser
-      POSTGRES_PASSWORD: happpass123
+      POSTGRES_DB: mangmania
+      POSTGRES_USER: mangmania
+      POSTGRES_PASSWORD: mangmania123
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "5433:5432"  # Меняем на 5433
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -18,24 +18,24 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - happshop-network
+      - mangmania-network
 
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: happshop-pgadmin
+    container_name: mangmania-pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@happshop.com
+      PGADMIN_DEFAULT_EMAIL: admin@mangmania.com
       PGADMIN_DEFAULT_PASSWORD: admin123
     ports:
       - "5051:80"  # Меняем на 5051
     depends_on:
       - postgres
     networks:
-      - happshop-network
+      - mangmania-network
 
 volumes:
   postgres_data:
 
 networks:
-  happshop-network:
+  mangmania-network:
     driver: bridge

@@ -13,7 +13,7 @@ import ru.github.mangmania.auth.service.JwtService;
 import ru.github.mangmania.auth.service.UserService;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
